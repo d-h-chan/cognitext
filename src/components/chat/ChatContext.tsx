@@ -102,7 +102,6 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
           previousMessages?.pages.flatMap((page) => page.messages) ?? [],
       };
     },
-    // todo comment
     onSuccess: async (stream) => {
       setIsLoading(false);
 
@@ -178,7 +177,6 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
         );
       }
     },
-    // todo comment
     onError: (_, __, context) => {
       setMessage(backupMessage.current);
       utils.getFileMessages.setData(
@@ -186,10 +184,8 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
         { messages: context?.previousMessages ?? [] }
       );
     },
-    // todo comment
     onSettled: async () => {
       setIsLoading(false);
-
       await utils.getFileMessages.invalidate({ fileId });
     },
   });

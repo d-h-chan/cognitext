@@ -8,9 +8,14 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+
+interface PageProps {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
 
 // Dashboard component, display all of a user's files and actions they can take on them
-const Dashboard = () => {
+const Dashboard = ({ subscriptionPlan }: PageProps) => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] =
     useState<String | null>(null);
 
@@ -33,7 +38,7 @@ const Dashboard = () => {
     <main className="mx-auto max-w-7xl md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pd-5 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 font-bold text-5xl text-gray-900">My Files</h1>
-        <UploadButton />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed}/>
       </div>
 
       {/* Display all user files */}
@@ -73,7 +78,7 @@ const Dashboard = () => {
                     {format(new Date(file.createdAt), "MMM yyyy")}
                   </div>
 
-                  {/* todo: # of message users has exchanged with pdf file */}
+                  {/* # of message users has exchanged with pdf file */}
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
                     {fileMessageCounts[file.id] || 0}

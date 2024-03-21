@@ -70,10 +70,10 @@ export const appRouter = router({
     if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: dbUser.stripeCustomerId,
-        return_url: billingUrl
-      })
+        return_url: billingUrl,
+      });
 
-      return { url: stripeSession.url }
+      return { url: stripeSession.url };
     }
 
     const stripeSession = await stripe.checkout.sessions.create({
@@ -85,15 +85,15 @@ export const appRouter = router({
       line_items: [
         {
           price: PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test,
-          quantity: 1
-        }
+          quantity: 1,
+        },
       ],
       metadata: {
-        userId: userId
-      }
-    })
+        userId: userId,
+      },
+    });
 
-    return { url: stripeSession.url }
+    return { url: stripeSession.url };
   }),
   // get all messages asked to a PDF
   getFileMessages: privateProcedure
@@ -146,7 +146,7 @@ export const appRouter = router({
         nextCursor,
       };
     }),
-  //todo comment
+  // Get how many messages the user has sent to each file
   getFileMessageCounts: privateProcedure.query(async ({ ctx }) => {
     const { userId } = ctx;
     const messages = await db.message.findMany({
