@@ -12,9 +12,23 @@ const nextConfig = {
         destination: '/api/auth/register',
         permanent: true,
       },
+      {
+        source: '/sign-out',
+        destination: '/api/auth/logout',
+        permanent: true,
+      },
     ]
   },
-
+  images: {
+    remotePatterns: [
+      {
+         protocol: "https",
+         hostname: "*.googleusercontent.com",
+         port: "",
+         pathname: "**",
+      }
+    ]
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias.canvas = false
     config.resolve.alias.encoding = false
