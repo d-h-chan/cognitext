@@ -15,7 +15,6 @@ const Page = () => {
 
   // Handle success in useEffect
   useEffect(() => {
-    console.log("handle success")
     if (isSuccess && data?.success) {
       router.push('/dashboard');
     }
@@ -23,7 +22,6 @@ const Page = () => {
 
   // Handle error in useEffect
   useEffect(() => {
-    console.log("handle error")
     if (isError && error.data?.code === 'UNAUTHORIZED') {
       router.push('/sign-in');
     }

@@ -42,7 +42,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL('https://cognitext.vercel.app/'),
-    themeColor: '#FFF',
     ...(noIndex && {
       robots: {
         index: false,
